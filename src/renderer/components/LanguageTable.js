@@ -5,52 +5,38 @@ import {Table, Column} from 'fixed-data-table';
 import update from 'react-addons-update';
 
 export class LanguageTable extends React.Component {
-  state = {
-    message: 'Hello, Electron'
-  }
   constructor () {
     super();
     this.addEventListener();
     this.state = {
-      rows: []
+      rows: [],
+      cells:[]
     };
   }
-  componentWillMount(){
-    this.setState({'rows': [
-      ['Hallo', 'Hallo', 'Hello'],
-      ['a2', 'b2', 'c2'],
-      ['a3', 'b3', 'c3']
-    ]});
-  }
+
   handleChange(event) {
-    console.log(this);
     this[0].state.rows[this[4]][this[2]] = event.target.value;
     this[0].setState({rows: this[0].state.rows});
   }
   columnRender(value, index, row, indexData){
-    //console.log(value, index, row, indexData);
-    [value, index, row, indexData]
-    return (<div>
-    <button onClick={() => console.log(this.state.rows)}></button><textarea style={{width: 100%}}type="text" value={this.state.rows[indexData][index]} onChange={this.handleChange.bind([this, value, index, row, indexData])} ></textarea></div>);
+    return <textarea className="editArea" value={this.state.rows[indexData][index]} onChange={this.handleChange.bind([this, value, index, row, indexData])}></textarea>;
   }
   rowGetter(rowIndex) {
     return this.state.rows[rowIndex];
   }
-
   addEventListener(){
     var self = this;
     require('ipc').on('open-files', function(rows) {
-      console.log(rows);
-      self.setState({ rows: rows[1] });
+      self.setState({ rows: rows[1], cells: rows[0] });
     });
   }
   logData(){
     console.log(this.state.rows);
   }
   render() {
+    var self = this;
     if (this.state.rows.length > 0) {
       return (
-
         <Table
           rowHeight={50}
           rowGetter={this.rowGetter.bind(this)}
@@ -61,25 +47,20 @@ export class LanguageTable extends React.Component {
           <Column
             cellRenderer={this.columnRender.bind(this)}
             fixed={true}
-            label="Key"
+            label="key"
             width={100}
-            dataKey={0}
-          />
-          <Column
-            cellRenderer={this.columnRender.bind(this)}
-            label="EN"
-            width={100}
-            flexGrow={2}
-            dataKey={1}
-          />
-          <Column
-            cellRenderer={this.columnRender.bind(this)}
-            label="DE"
-            width={100}
-            flexGrow={2}
-            dataKey={2}
-          />
-            </Table>
+            dataKey = { 0}
+            />
+            { self.state.cells.map((result, index) => {
+               return <Column
+                cellRenderer={self.columnRender.bind(self)}
+                label={result}
+                width = { 100}
+                flexGrow={4}
+                dataKey={index+1}
+              />
+            }) }
+          </Table>
       );
     }
     return(
