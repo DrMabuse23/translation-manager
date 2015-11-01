@@ -12,6 +12,7 @@ export default class OpenFile {
     this.mainWindow = mainWindow;
     this.files = [];
     this.filesJson = [];
+    this.openFileDialog();
   }
   getJson(files) {
     let self = this;

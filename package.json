@@ -20,7 +20,7 @@
     "lodash": "^3.9.3",
     "pouchdb": "^5.0.0",
     "react": "^0.14.0",
-    "react-desktop": "^0.1.45",
+    "material-ui": "latest",
     "react-dom": "^0.14.0",
     "react-router": "^1.0.0-rc3"
   },

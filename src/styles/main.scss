@@ -29,3 +29,16 @@ html, body {
   width: 100%;
   border: none;
 }
+.tile-grid{
+  display: flex;
+
+  article{
+    &.left{
+      flex:  1 15%;
+      min-height: 10px;
+    }
+    &.right{
+      flex:  1 85%;
+    }
+  }
+}
