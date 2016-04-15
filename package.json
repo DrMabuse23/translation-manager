@@ -16,13 +16,23 @@
   "author": "Quramy",
   "license": "MIT",
   "dependencies": {
+    "babel": "^5.8.38",
+    "electron-connect": "^0.3.7",
     "fixed-data-table": "^0.5.0",
+    "gulp": "^3.9.1",
+    "gulp-minify-css": "^1.2.4",
+    "gulp-plumber": "^1.1.0",
+    "gulp-sass": "^2.2.0",
+    "gulp-uglify": "^1.5.3",
+    "history": "^2.0.2",
     "lodash": "^3.9.3",
-    "pouchdb": "^5.0.0",
-    "react": "^0.14.0",
-    "material-ui": "latest",
-    "react-dom": "^0.14.0",
-    "react-router": "^1.0.0-rc3"
+    "main-bower-files": "^2.11.1",
+    "material-ui": "^0.14.4",
+    "merge2": "^0.3.7",
+    "pouchdb": "^5.3.1",
+    "react": "^0.14.8",
+    "react-dom": "^0.14.8",
+    "react-router": "^1.0.3"
   },
   "devDependencies": {
     "babel": "^5.4.7",

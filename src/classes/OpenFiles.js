@@ -30,7 +30,7 @@ export default class OpenFile {
     languages.forEach((lang, index) => {
       if (index > 0) {
         let diff = _.difference(Object.keys(self.filesJson[lang]), keys);
-        console.log(diff, 'diff');
+        // console.log(diff, 'diff');s
         if (diff.length > 0) {
           diff.forEach((key) => {
             keys.push(key);

@@ -34,6 +34,7 @@ export class LanguageTable extends React.Component {
   constructor(props) {
     super(props);
     this.addEventListener();
+    this.rawRows = [];
     this.state = {
       rows: [],
       cells: [],
@@ -62,15 +63,15 @@ export class LanguageTable extends React.Component {
     this.state.cells.forEach((cell) => {
       res.push(this.refs[`field${cell}`].getValue());
     });
-    this.state.rows.unshift(res);
-    this.setState({ rows: this.state.rows });
+    this.rawRows.unshift(res);
+    this.setState({ rows: this.rawRows.sort() });
     this._handleCustomDialogCancel();
   }
 
   _handleChangeTextArea(value, index, indexData) {
-    console.log();
-    this.state.rows[index][indexData] = value;
-    this.setState({rows: this.state.rows});
+    console.log(value, index, indexData);
+    //this.state.rows[index][indexData] = value;
+    //this.setState({rows: this.state.rows});
   }
 
   columnRender(value, index, row, indexData) {
@@ -85,7 +86,8 @@ export class LanguageTable extends React.Component {
   addEventListener() {
     var self = this;
     ipc.on('open-files', function (rows) {
-      self.setState({rows: rows[1], cells: rows[0]});
+      self.rawRows = rows[1].sort();
+      self.setState({rows: self.rawRows, cells: rows[0]});
     });
   }
 
@@ -105,7 +107,7 @@ export class LanguageTable extends React.Component {
   render() {
     let controlledScrolling =
       this.state.left !== undefined || this.state.top !== undefined;
-    var self = this;
+    let self = this;
 
     return (
       <section className="tile-grid">
@@ -178,7 +180,7 @@ export class LanguageTable extends React.Component {
                           key={`field${cell}`}
                           multiline={true}
                           style={{width: '100%'}}
-                          ref={cell}
+                          ref={`field${cell}`}
                           floatingLabelText={`Add Value for ${cell} (optional)`}
                         />
                       </mui.ListItem>
